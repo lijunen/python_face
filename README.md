@@ -1,2 +1,3 @@
 # python_face
-python 
+python 学习 类 继承
+face++
