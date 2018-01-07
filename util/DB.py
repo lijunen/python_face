@@ -23,15 +23,24 @@ class DB(object):
             self.__cur.execute(sql,(param))
             return self.__cur.fetchone()
         finally:
-            self.__conn.close()
+            pass
+            # self.__conn.close()
 
     def fecth_all(self,sql,param={}):
         try:
             self.__cur.execute(sql,(param))
             return self.__cur.fetchall()
         finally:
-            self.__conn.close()
+            pass
+            # self.__conn.close()
 
-    def execute(self,sql,param = {}):
-        return self.__cur.execute(sql,(param))
-
+    def insert(self,table_name,params):
+        try:
+            for key in params:
+                params[key] = "'"+str(params[key])+"'"
+            key = ','.join(params.keys())
+            values = ','.join(params.values())
+            sql = "INSERT INTO "+table_name+"("+key+")VALUES("+values+")"
+            return self.__cur.execute(sql)
+        finally:
+            print('error,sql:'+sql)
