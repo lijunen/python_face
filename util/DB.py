@@ -22,17 +22,16 @@ class DB(object):
         try:
             self.__cur.execute(sql,(param))
             return self.__cur.fetchone()
-        finally:
+        except:
             pass
-            # self.__conn.close()
 
     def fecth_all(self,sql,param={}):
         try:
             self.__cur.execute(sql,(param))
             return self.__cur.fetchall()
-        finally:
+        except:
+            print('sql error')
             pass
-            # self.__conn.close()
 
     def insert(self,table_name,params):
         try:
@@ -41,6 +40,7 @@ class DB(object):
             key = ','.join(params.keys())
             values = ','.join(params.values())
             sql = "INSERT INTO "+table_name+"("+key+")VALUES("+values+")"
+            print(sql)
             return self.__cur.execute(sql)
-        finally:
+        except:
             print('error,sql:'+sql)
